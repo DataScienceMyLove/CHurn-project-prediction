@@ -1,0 +1,7 @@
+# flyctl launch added from .gitignore
+**/__pycache__
+**/.ipynb_checkpoints
+
+# flyctl launch added from .venv/.gitignore
+.venv/**/*
+fly.toml

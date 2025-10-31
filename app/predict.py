@@ -32,8 +32,11 @@ class Customer(BaseModel):
     tenure: int = Field(..., ge=0)
     monthlycharges: float = Field(..., ge=0.0)
     totalcharges: float = Field(..., ge=0.0)
-# response
 
+# response
+class PredictResponse(BaseModel):
+    churn_probability: float
+    churn: bool
 
 app = FastAPI(title="customer-churn-prediction")
 
@@ -47,13 +50,13 @@ def predict_single(customer):
 
 
 @app.post("/predict")
-def predict(customer: Dict[str, Any]):
-    prob = predict_single(customer)
+def predict(customer: Customer) -> PredictResponse:
+    prob = predict_single(customer.model_dump())
 
-    return {
-        "churn_probability": prob,
-        "churn": bool(prob >= 0.5)
-    }
+    return PredictResponse(
+        churn_probability=prob,
+        churn=prob >= 0.5
+    )
 
 
 if __name__ == "__main__":

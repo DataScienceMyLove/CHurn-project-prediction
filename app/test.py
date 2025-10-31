@@ -1,6 +1,7 @@
 import requests
 
-url = 'http://localhost:9696/predict'
+# url = 'http://localhost:9696/predict'
+url = "https://nameless-snow-7968.fly.dev/predict"
 
 customer = {
     'gender': 'female',
